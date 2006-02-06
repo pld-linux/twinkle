@@ -5,20 +5,21 @@
 Summary:	twinkle - SIP Soft Phone
 Summary(pl):	twinkle - telefon programowy SIP
 Name:		twinkle
-Version:	0.5
+Version:	0.6
 Release:	1
 License:	GPL v2
 Group:		Applications/Communications
 Source0:	http://www.xs4all.nl/~mfnboer/twinkle/download/%{name}-%{version}.tar.gz
-# Source0-md5:	987f54a5dd90f6ab0d1282adb8952b5d
+# Source0-md5:	9d8c4ceca35a27163468f7dd42334459
 URL:		http://www.twinklephone.com/
 BuildRequires:	alsa-lib-devel
 BuildRequires:	commoncpp2-devel >= 1.3.0
 BuildRequires:	ccrtp-devel >= 1.3.4
 %{?with_kde:BuildRequires:	kdelibs-devel}
+BuildRequires:	libsndfile-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qmake
-BuildRequires:	qt-devel >= 3.3.0
+BuildRequires:	qt-devel >= 6:3.3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
