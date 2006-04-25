@@ -6,11 +6,12 @@ Summary:	twinkle - SIP Soft Phone
 Summary(pl):	twinkle - telefon programowy SIP
 Name:		twinkle
 Version:	0.6.2
-Release:	3.1
+Release:	3.2
 License:	GPL v2
 Group:		Applications/Communications
 Source0:	http://www.xs4all.nl/~mfnboer/twinkle/download/%{name}-%{version}.tar.gz
 # Source0-md5:	9a57f8a2cc24db1f8eb6afdf46e122ff
+Source1:	%{name}.desktop
 Patch0:		%{name}-gcc4.patch
 URL:		http://www.twinklephone.com/
 BuildRequires:	alsa-lib-devel
@@ -48,12 +49,13 @@ export QTDIR=%{_prefix}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_pixmapsdir}
+install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install src/gui/images/twinkle48.png $RPM_BUILD_ROOT%{_pixmapsdir}/twinkle.png
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -64,3 +66,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/twinkle
 %{_pixmapsdir}/twinkle.png
+%{_desktopdir}/twinkle.desktop
