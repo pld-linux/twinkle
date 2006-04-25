@@ -1,0 +1,11 @@
+--- twinkle-0.6.2/src/listener.cpp.orig	2006-01-26 21:03:16.000000000 +0100
++++ twinkle-0.6.2/src/listener.cpp	2006-04-25 21:04:34.000000000 +0200
+@@ -128,7 +128,7 @@
+ 	t_sip_message	*msg;
+ 	t_event_network	*ev_network;
+ 	t_event_icmp	*ev_icmp;
+-	int		pos_body;	// position of body in msg
++	std::size_t	pos_body;	// position of body in msg
+ 	string		log_msg;
+ 
+ 	// Number of consecutive non-icmp errors received
