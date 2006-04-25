@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Twinkle
+Comment=SIP softphone for Linux
+Comment[pl]=Programowy telefon SIP dla Linuksa
+Exec=twinkle
+Icon=twinkle.png
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Categories=Qt;Network;InstantMessaging;
