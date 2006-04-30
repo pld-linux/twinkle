@@ -1,31 +1,38 @@
-diff -ur orig/twinkle-0.6.1/configure.in twinkle-0.6.1/configure.in
---- orig/twinkle-0.6.1/configure.in	2006-02-11 14:40:40.000000000 +0000
-+++ twinkle-0.6.1/configure.in	2006-02-21 10:49:26.000000000 +0000
-@@ -133,6 +133,12 @@
- 	echo "LIBS += -lasound" >> $QT_INCL_PRO
- 	])
+--- twinkle-0.7/configure.in.orig	2006-04-30 10:10:08.000000000 +0200
++++ twinkle-0.7/configure.in	2006-04-30 16:47:23.000000000 +0200
+@@ -143,6 +143,12 @@
+ 	have_speex="yes"
+ 	], [have_speex="no"])
  
 +# Check if libgsm is available
 +AC_CHECK_LIB(gsm, sf_open, [],
 +	[AC_MSG_ERROR([libgsm library is missing.])])
 +AC_CHECK_HEADER(gsm.h, [],
-+	[AC_MSG_ERROR([gsm header files msiing (gsm.h)])])
++	[AC_MSG_ERROR([gsm header files missing (gsm.h)])])
 +
  $QTDIR/bin/qmake -o src/gui/Makefile src/gui/twinkle.pro
  echo "distdir:" >> src/gui/Makefile
  
-diff -ur orig/twinkle-0.6.1/src/audio/audio_rx.h twinkle-0.6.1/src/audio/audio_rx.h
---- orig/twinkle-0.6.1/src/audio/audio_rx.h	2006-01-01 15:38:04.000000000 +0000
-+++ twinkle-0.6.1/src/audio/audio_rx.h	2006-02-21 10:34:57.000000000 +0000
-@@ -29,7 +29,7 @@
+@@ -152,7 +158,7 @@
+ PARSER_CXXFLAGS=`echo $CXXFLAGS | sed -e "s/\-O2//;s/\-Os//"`
+ AC_SUBST(PARSER_CXXFLAGS)
+ 
+-AC_OUTPUT(Makefile src/Makefile src/audio/Makefile src/audio/gsm/Makefile \
++AC_OUTPUT(Makefile src/Makefile src/audio/Makefile \
+ 	src/audits/Makefile src/sdp/Makefile src/parser/Makefile \
+ 	src/sockets/Makefile src/stun/Makefile src/threads/Makefile \
+ 	twinkle.spec)
+--- twinkle-0.7/src/audio/audio_encoder.h.orig	2006-04-16 20:51:14.000000000 +0200
++++ twinkle-0.7/src/audio/audio_encoder.h	2006-04-30 15:40:37.000000000 +0200
+@@ -25,7 +25,7 @@
+ #include "twinkle_config.h"
+ #include "audio_codecs.h"
  #include "user.h"
- #include "threads/mutex.h"
- #include "threads/sema.h"
 -#include "gsm/inc/gsm.h"
 +#include <gsm.h>
- #include "audio_device.h"
- #include "twinkle_rtp_session.h"
  
+ #ifdef HAVE_SPEEX
+ #include <speex/speex.h>
 diff -ur orig/twinkle-0.6.1/src/audio/audio_tx.h twinkle-0.6.1/src/audio/audio_tx.h
 --- orig/twinkle-0.6.1/src/audio/audio_tx.h	2006-01-01 15:38:04.000000000 +0000
 +++ twinkle-0.6.1/src/audio/audio_tx.h	2006-02-21 10:35:16.000000000 +0000
