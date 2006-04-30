@@ -27,6 +27,7 @@ BuildRequires:	libsndfile-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qmake
 BuildRequires:	qt-devel >= 6:3.3.0
+BuildRequires:	speex-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
