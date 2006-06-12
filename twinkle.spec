@@ -14,6 +14,7 @@ Source0:	http://www.xs4all.nl/~mfnboer/twinkle/download/%{name}-%{version}.tar.g
 Source1:	%{name}.desktop
 Patch0:		%{name}-gcc4.patch
 Patch1:		%{name}-gsm.patch
+Patch2:		%{name}-from-mainwindow.patch
 URL:		http://www.twinklephone.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -42,6 +43,7 @@ telefonicznych po sieciach IP.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
