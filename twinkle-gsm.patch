@@ -1,8 +1,8 @@
---- twinkle-0.8/configure.in.orig	2006-06-30 22:11:07.000000000 +0200
-+++ twinkle-0.8/configure.in	2006-07-02 07:58:37.053748000 +0200
-@@ -147,6 +147,12 @@
- 	have_speex="yes"
- 	], [have_speex="no"])
+--- twinkle-0.8.1/configure.in.orig	2006-07-09 16:09:11.000000000 +0200
++++ twinkle-0.8.1/configure.in	2006-07-10 17:24:58.371947250 +0200
+@@ -160,6 +160,12 @@
+ 	have_speex="no"
+ fi
  
 +# Check if libgsm is available
 +AC_CHECK_LIB(gsm, sf_open, [],
@@ -13,13 +13,12 @@
  # iLBC
  if test "x$ac_cv_ilbc" = "xyes"
  then
-@@ -172,8 +178,7 @@
+@@ -196,7 +202,7 @@
  PARSER_CXXFLAGS=`echo $CXXFLAGS | sed -e "s/\-O2//;s/\-Os//"`
  AC_SUBST(PARSER_CXXFLAGS)
  
 -AC_OUTPUT(Makefile src/Makefile src/audio/Makefile src/audio/gsm/Makefile \
--	src/audio/ilbc/Makefile \
-+AC_OUTPUT(Makefile src/Makefile src/audio/Makefile src/audio/ilbc/Makefile \
++AC_OUTPUT(Makefile src/Makefile src/audio/Makefile \
  	src/audits/Makefile src/sdp/Makefile src/parser/Makefile \
  	src/sockets/Makefile src/stun/Makefile src/threads/Makefile \
  	twinkle.spec)
@@ -56,41 +55,40 @@
  #include "audio_device.h"
  #include "twinkle_rtp_session.h"
  #include "twinkle_config.h"
---- twinkle-0.8/src/audio/Makefile.am.orig	2006-05-13 09:57:01.000000000 +0200
-+++ twinkle-0.8/src/audio/Makefile.am	2006-07-02 07:45:43.445400500 +0200
+--- twinkle-0.8.1/src/audio/Makefile.am.orig	2006-07-07 20:39:35.000000000 +0200
++++ twinkle-0.8.1/src/audio/Makefile.am	2006-07-10 17:28:47.042238250 +0200
 @@ -37,6 +37,6 @@
          tone_gen.h\
          twinkle_rtp_session.h
  
--SUBDIRS = gsm ilbc
-+SUBDIRS = ilbc
+-SUBDIRS = gsm
++SUBDIRS =
  
  EXTRA_DIST = README_G711
---- twinkle-0.8/src/gui/twinkle.pro.orig	2006-07-01 09:19:17.000000000 +0200
-+++ twinkle-0.8/src/gui/twinkle.pro	2006-07-02 07:49:12.354456500 +0200
+--- twinkle-0.8.1/src/gui/twinkle.pro.orig	2006-07-07 20:44:07.000000000 +0200
++++ twinkle-0.8.1/src/gui/twinkle.pro	2006-07-10 17:31:41.241125000 +0200
 @@ -3,7 +3,7 @@
  
  CONFIG	+= qt warn_off release thread
  
--LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audio/gsm/libgsm.a ../audio/ilbc/libilbc.a ../audits/libaudits.a ../stun/libstun.a -lresolv -lsndfile -lboost_regex
-+LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audio/ilbc/libilbc.a ../audits/libaudits.a ../stun/libstun.a -lresolv -lsndfile -lboost_regex -lgsm
+-LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audio/gsm/libgsm.a ../audits/libaudits.a ../stun/libstun.a -lresolv -lsndfile -lboost_regex
++LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audits/libaudits.a ../stun/libstun.a -lresolv -lsndfile -lboost_regex -lgsm
  
  DEFINES	+= QT_NO_STL
  
---- twinkle-0.8/src/Makefile.am.orig	2006-06-22 22:32:19.000000000 +0200
-+++ twinkle-0.8/src/Makefile.am	2006-07-02 07:50:05.601784250 +0200
-@@ -16,13 +16,13 @@
+--- twinkle-0.8.1/src/Makefile.am.orig	2006-07-07 22:19:03.000000000 +0200
++++ twinkle-0.8.1/src/Makefile.am	2006-07-10 17:33:35.144243500 +0200
+@@ -16,12 +16,12 @@
          $(top_builddir)/src/sockets/libsocket.a\
          $(top_builddir)/src/threads/libthread.a\
          $(top_builddir)/src/audio/libaudio.a\
 -        $(top_builddir)/src/audio/gsm/libgsm.a\
-         $(top_builddir)/src/audio/ilbc/libilbc.a\
          $(top_builddir)/src/audits/libaudits.a\
          $(top_builddir)/src/stun/libstun.a\
  	$(CCRTP_LIBS)\
  	-lresolv\
  	-lsndfile\
-+	-lgsm \
++	-lgsm\
  	-lboost_regex
  
  libtwinkle_a_SOURCES =\
