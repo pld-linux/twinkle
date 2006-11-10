@@ -26,6 +26,7 @@ BuildRequires:	libtool
 BuildRequires:	libgsm-devel >= 1.0.11
 BuildRequires:	libilbc-devel
 BuildRequires:	libsndfile-devel
+BuildRequires:	libzrtpcpp-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qmake
 BuildRequires:	qt-devel >= 6:3.3.0
