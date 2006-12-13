@@ -19,6 +19,7 @@ BuildRequires:	commoncpp2-devel >= 1.4.0
 BuildRequires:	ccrtp-devel >= 1.5.0
 %{?with_kde:BuildRequires:	kdelibs-devel}
 BuildRequires:	libsndfile-devel
+BuildRequires:	libilbc-devel
 BuildRequires:	speex-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qmake
