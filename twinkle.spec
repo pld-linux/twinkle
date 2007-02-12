@@ -3,7 +3,7 @@
 %bcond_without	kde		# disable KDE support
 #
 Summary:	twinkle - SIP Soft Phone
-Summary(pl):	twinkle - telefon programowy SIP
+Summary(pl.UTF-8):   twinkle - telefon programowy SIP
 Name:		twinkle
 Version:	0.9
 Release:	3
@@ -39,8 +39,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Twinkle is a SIP based soft phone for making telephone calls over IP
 networks.
 
-%description -l pl
-Twinkle to oparty na SIP programowy telefon do wykonywania po³±czeñ
+%description -l pl.UTF-8
+Twinkle to oparty na SIP programowy telefon do wykonywania poÅ‚Ä…czeÅ„
 telefonicznych po sieciach IP.
 
 %prep
