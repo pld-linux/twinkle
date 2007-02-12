@@ -3,7 +3,7 @@
 %bcond_without	kde		# disable KDE support
 #
 Summary:	twinkle - SIP Soft Phone
-Summary(pl.UTF-8):   twinkle - telefon programowy SIP
+Summary(pl.UTF-8):	twinkle - telefon programowy SIP
 Name:		twinkle
 Version:	0.9
 Release:	3
