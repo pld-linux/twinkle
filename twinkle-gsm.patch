@@ -65,19 +65,20 @@
 +SUBDIRS =
  
  EXTRA_DIST = README_G711
---- twinkle-0.8.1/src/gui/twinkle.pro.orig	2006-07-07 20:44:07.000000000 +0200
-+++ twinkle-0.8.1/src/gui/twinkle.pro	2006-07-10 17:31:41.241125000 +0200
+
+--- twinkle/src/gui/twinkle.pro.org	2007-02-28 01:27:31.194623000 +0100
++++ twinkle/src/gui/twinkle.pro	2007-02-28 01:28:02.870623000 +0100
 @@ -3,7 +3,7 @@
  
  CONFIG	+= qt warn_off release thread
  
--LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audio/gsm/libgsm.a ../audits/libaudits.a ../stun/libstun.a -lresolv -lsndfile -lboost_regex
-+LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audits/libaudits.a ../stun/libstun.a -lresolv -lsndfile -lboost_regex -lgsm
+-LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audio/gsm/libgsm.a ../audits/libaudits.a ../stun/libstun.a ../mwi/libmwi.a -lsndfile
++LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audits/libaudits.a ../stun/libstun.a ../mwi/libmwi.a -lsndfile -lgsm
  
  DEFINES	+= QT_NO_STL
  
---- twinkle-0.8.1/src/Makefile.am.orig	2006-07-07 22:19:03.000000000 +0200
-+++ twinkle-0.8.1/src/Makefile.am	2006-07-10 17:33:35.144243500 +0200
+--- twinkle/src/Makefile.am.org	2007-02-28 01:28:25.106623000 +0100
++++ twinkle/src/Makefile.am	2007-02-28 01:28:41.186623000 +0100
 @@ -16,12 +16,12 @@
          $(top_builddir)/src/sockets/libsocket.a\
          $(top_builddir)/src/threads/libthread.a\
@@ -85,10 +86,11 @@
 -        $(top_builddir)/src/audio/gsm/libgsm.a\
          $(top_builddir)/src/audits/libaudits.a\
          $(top_builddir)/src/stun/libstun.a\
+         $(top_builddir)/src/mwi/libmwi.a\
  	$(CCRTP_LIBS)\
- 	-lresolv\
- 	-lsndfile\
-+	-lgsm\
- 	-lboost_regex
+-	-lsndfile
++	-lsndfile \
++	-lgsm
  
  libtwinkle_a_SOURCES =\
+ 	abstract_dialog.cpp\
