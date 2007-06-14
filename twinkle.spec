@@ -5,12 +5,12 @@
 Summary:	twinkle - SIP Soft Phone
 Summary(pl.UTF-8):	twinkle - telefon programowy SIP
 Name:		twinkle
-Version:	1.0
+Version:	1.0.1
 Release:	1
 License:	GPL v2
 Group:		Applications/Communications
 Source0:	http://www.xs4all.nl/~mfnboer/twinkle/download/%{name}-%{version}.tar.gz
-# Source0-md5:	3180475a8eade9918bc1299dcbfe1fcc
+# Source0-md5:	625328b58d8432067be80d47026a4551
 Source1:	%{name}.desktop
 Patch0:		%{name}-gsm.patch
 Patch1:		%{name}-nobind.patch
