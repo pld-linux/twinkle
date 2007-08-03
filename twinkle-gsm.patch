@@ -72,14 +72,14 @@
  
  CONFIG	+= qt warn_off release thread
  
--LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audio/gsm/libgsm.a ../audits/libaudits.a ../stun/libstun.a ../mwi/libmwi.a -lsndfile
-+LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audits/libaudits.a ../stun/libstun.a ../mwi/libmwi.a -lsndfile -lgsm
+-LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audio/gsm/libgsm.a ../audits/libaudits.a ../stun/libstun.a ../mwi/libmwi.a ../im/libim.a ../patterns/libpatterns.a ../presence/libpresence.a -lsndfile
++LIBS	+= ../libtwinkle.a ../parser/libsipparser.a ../sdp/libsdpparser.a ../sockets/libsocket.a ../threads/libthread.a ../audio/libaudio.a ../audits/libaudits.a ../stun/libstun.a ../mwi/libmwi.a ../im/libim.a ../patterns/libpatterns.a ../presence/libpresence.a -lsndfile -lgsm
  
  DEFINES	+= QT_NO_STL
  
 --- twinkle/src/Makefile.am.org	2007-02-28 01:28:25.106623000 +0100
 +++ twinkle/src/Makefile.am	2007-02-28 01:28:41.186623000 +0100
-@@ -16,12 +16,12 @@
+@@ -16,7 +16,6 @@
          $(top_builddir)/src/sockets/libsocket.a\
          $(top_builddir)/src/threads/libthread.a\
          $(top_builddir)/src/audio/libaudio.a\
@@ -87,10 +87,11 @@
          $(top_builddir)/src/audits/libaudits.a\
          $(top_builddir)/src/stun/libstun.a\
          $(top_builddir)/src/mwi/libmwi.a\
+@@ -25,6 +24,7 @@
+         $(top_builddir)/src/patterns/libpatterns.a\
  	$(CCRTP_LIBS)\
--	-lsndfile
-+	-lsndfile \
-+	-lgsm
+ 	$(XML2_LIBS)\
++	-lgsm \
+ 	-lsndfile
  
  libtwinkle_a_SOURCES =\
- 	abstract_dialog.cpp\
