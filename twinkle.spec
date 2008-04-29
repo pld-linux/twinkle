@@ -17,7 +17,7 @@ URL:		http://www.twinklephone.com/
 BuildRequires:	alsa-lib-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	boost-regex-devel
+BuildRequires:	boost-devel >= 1.35.0
 BuildRequires:	ccrtp-devel >= 1.5.0
 BuildRequires:	commoncpp2-devel >= 1.5.0
 %{?with_kde:BuildRequires:	kdelibs-devel}
