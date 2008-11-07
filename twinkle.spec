@@ -24,6 +24,7 @@ BuildRequires:	commoncpp2-devel >= 1.5.0
 %{?with_kde:BuildRequires:	kdelibs-devel}
 BuildRequires:	libgsm-devel >= 1.0.11
 BuildRequires:	libilbc-devel
+BuildRequires:	libmagic-devel
 BuildRequires:	libsndfile-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
