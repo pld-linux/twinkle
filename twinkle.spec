@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	kde		# disable KDE support
+%bcond_with	kde		# disable KDE support
 #
 Summary:	twinkle - SIP Soft Phone
 Summary(pl.UTF-8):	twinkle - telefon programowy SIP
