@@ -33,6 +33,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	qmake
 BuildRequires:	qt-devel >= 6:3.3.0
 BuildRequires:	qt-linguist
+BuildRequires:	readline-devel
 BuildRequires:	speex-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
