@@ -20,7 +20,7 @@ BuildRequires:	alsa-lib-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	boost-devel >= 1.35.0
-BuildRequires:	ccrtp-devel >= 1.7.1
+BuildRequires:	ccrtp-devel >= 2.0.0
 BuildRequires:	commoncpp2-devel >= 1.7.1
 %{?with_kde:BuildRequires:	kdelibs-devel}
 BuildRequires:	libgsm-devel >= 1.0.11
