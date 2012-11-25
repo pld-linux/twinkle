@@ -67,3 +67,48 @@
  #ifndef HAVE_ILBC_CPP
  }
  #endif
+diff -ur twinkle-1.4.2.org/src/audio/audio_decoder.cpp twinkle-1.4.2/src/audio/audio_decoder.cpp
+--- twinkle-1.4.2.org/src/audio/audio_decoder.cpp	2012-11-25 13:50:00.747477674 +0100
++++ twinkle-1.4.2/src/audio/audio_decoder.cpp	2012-11-25 13:57:53.762185455 +0100
+@@ -31,6 +31,22 @@
+ #endif
+ #endif
+ 
++#ifndef	NO_OF_BYTES_20MS
++#define	NO_OF_BYTES_20MS	38
++#endif
++
++#ifndef	NO_OF_BYTES_30MS
++#define	NO_OF_BYTES_30MS	50
++#endif
++
++#ifndef	MIN_SAMPLE
++#define	MIN_SAMPLE	-32768
++#endif
++
++#ifndef	MAX_SAMPLE
++#define	MAX_SAMPLE	32767
++#endif
++
+ //////////////////////////////////////////
+ // class t_audio_decoder
+ //////////////////////////////////////////
+diff -ur twinkle-1.4.2.org/src/audio/audio_encoder.cpp twinkle-1.4.2/src/audio/audio_encoder.cpp
+--- twinkle-1.4.2.org/src/audio/audio_encoder.cpp	2012-11-25 13:50:00.747477674 +0100
++++ twinkle-1.4.2/src/audio/audio_encoder.cpp	2012-11-25 13:59:32.561236139 +0100
+@@ -30,6 +30,14 @@
+ #endif
+ #endif
+ 
++#ifndef	NO_OF_BYTES_20MS
++#define	NO_OF_BYTES_20MS	38
++#endif
++
++#ifndef	NO_OF_BYTES_30MS
++#define	NO_OF_BYTES_30MS	50
++#endif
++
+ //////////////////////////////////////////
+ // class t_audio_encoder
+ //////////////////////////////////////////
+
