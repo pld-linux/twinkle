@@ -1,0 +1,69 @@
+--- twinkle-1.4.2/configure.in.org	2012-11-25 13:35:52.700436829 +0100
++++ twinkle-1.4.2/configure.in	2012-11-25 13:36:12.737587289 +0100
+@@ -247,15 +247,18 @@
+ # iLBC
+ if test "x$ac_cv_ilbc" = "xyes"
+ then
+-	AC_CHECK_LIB(ilbc, iLBC_decode, [
+-		AC_CHECK_HEADER(ilbc/iLBC_define.h, [],
+-			[AC_MSG_ERROR([ilbc header files missing])])
++	saved_LIBS="$LIBS"
++	LIBS="$LIBS -lilbc"
++	AC_LINK_IFELSE([
++		     #include <stdio.h>
++		     #include <ilbc.h>
++		     int main() { iLBC_decode(NULL, NULL, NULL, 0); return 0; } ], [
+ 		AC_DEFINE(HAVE_ILBC, 1, [Define to 1 if you have the <ilbc> library.])
+ 		LIBS="-lilbc $LIBS"
+ 		echo "LIBS += -lilbc" >> $QT_INCL_PRO
+ 		have_ilbc="yes"
+ 		], [have_ilbc="no"])
+-		
++	LIBS="$saved_LIBS"
+ 	if test "x$ac_cv_ilbc_cpp" = "xyes"
+ 	then
+ 		AC_DEFINE(HAVE_ILBC_CPP, 1, [Define to 1 if you have a C++ ilbc library.])
+--- twinkle-1.4.2/src/audio/audio_encoder.h~	2012-11-25 13:36:19.687755088 +0100
++++ twinkle-1.4.2/src/audio/audio_encoder.h	2012-11-25 13:37:58.863482959 +0100
+@@ -39,7 +39,7 @@
+ #ifndef HAVE_ILBC_CPP
+ extern "C" {
+ #endif
+-#include <ilbc/iLBC_define.h>
++#include <ilbc.h>
+ #ifndef HAVE_ILBC_CPP
+ }
+ #endif
+--- twinkle-1.4.2/src/audio/audio_decoder.h~	2012-11-25 13:36:19.687755088 +0100
++++ twinkle-1.4.2/src/audio/audio_decoder.h	2012-11-25 13:38:12.730484432 +0100
+@@ -40,7 +40,7 @@
+ #ifndef HAVE_ILBC_CPP
+ extern "C" {
+ #endif
+-#include <ilbc/iLBC_define.h>
++#include <ilbc.h>
+ #ifndef HAVE_ILBC_CPP
+ }
+ #endif
+--- twinkle-1.4.2/src/audio/audio_encoder.cpp~	2009-01-18 15:13:46.000000000 +0100
++++ twinkle-1.4.2/src/audio/audio_encoder.cpp	2012-11-25 13:39:31.529053658 +0100
+@@ -24,7 +24,7 @@
+ #ifndef HAVE_ILBC_CPP
+ extern "C" {
+ #endif
+-#include <ilbc/iLBC_encode.h>
++#include <ilbc.h>
+ #ifndef HAVE_ILBC_CPP
+ }
+ #endif
+--- twinkle-1.4.2/src/audio/audio_decoder.cpp~	2009-01-18 14:38:00.000000000 +0100
++++ twinkle-1.4.2/src/audio/audio_decoder.cpp	2012-11-25 13:39:48.622799700 +0100
+@@ -25,7 +25,7 @@
+ #ifndef HAVE_ILBC_CPP
+ extern "C" {
+ #endif
+-#include <ilbc/iLBC_decode.h>
++#include <ilbc.h>
+ #ifndef HAVE_ILBC_CPP
+ }
+ #endif
