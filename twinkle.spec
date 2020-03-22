@@ -1,5 +1,5 @@
 # TODO:
-# - ilbc and g729 support
+# - g729 support: https://github.com/LubosD/twinkle/issues/104
 #
 Summary:	twinkle - SIP Soft Phone
 Summary(pl.UTF-8):	twinkle - telefon programowy SIP
@@ -10,6 +10,7 @@ License:	GPL v2
 Group:		Applications/Communications
 Source0:	https://github.com/LubosD/twinkle/archive/v%{version}.tar.gz
 # Source0-md5:	ca6884f9834a25e89fc945b48a91c7a2
+Patch0:		ilbc.patch
 URL:		http://twinkle.dolezel.info/
 BuildRequires:	Qt5Quick-devel
 BuildRequires:	Qt5Widgets-devel
@@ -30,6 +31,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	readline-devel
 BuildRequires:	speex-devel
 BuildRequires:	ucommon-devel
+BuildRequires:	webrtc-libilbc-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -42,6 +44,7 @@ telefonicznych po sieciach IP.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 install -d build
@@ -49,7 +52,7 @@ cd build
 %cmake \
 	-DWITH_ALSA=ON \
 	-DWITH_SPEEX=ON \
-	-DWITH_ILBC=OFF \
+	-DWITH_ILBC=ON \
 	-DWITH_ZRTP=ON \
 	-DWITH_G729=OFF \
 	-DWITH_QT5=ON \

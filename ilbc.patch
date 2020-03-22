@@ -1,0 +1,158 @@
+diff -ur twinkle-1.10.2.org/cmake/FindIlbc.cmake twinkle-1.10.2/cmake/FindIlbc.cmake
+--- twinkle-1.10.2.org/cmake/FindIlbc.cmake	2019-02-14 10:01:19.000000000 +0100
++++ twinkle-1.10.2/cmake/FindIlbc.cmake	2020-03-22 14:05:04.949245703 +0100
+@@ -1,4 +1,4 @@
+-FIND_PATH(ILBC_INCLUDE_DIR ilbc/iLBC_decode.h)
++FIND_PATH(ILBC_INCLUDE_DIR ilbc.h)
+ FIND_LIBRARY(ILBC_LIBRARIES NAMES ilbc)
+ 
+ IF(ILBC_INCLUDE_DIR AND ILBC_LIBRARIES)
+@@ -7,7 +7,7 @@
+ 
+ IF(ILBC_FOUND)
+ 	IF (NOT Ilbc_FIND_QUIETLY)
+-		MESSAGE(STATUS "Found ilbc includes:	${ILBC_INCLUDE_DIR}/ilbc/iLBC_decode.h")
++		MESSAGE(STATUS "Found ilbc includes:	${ILBC_INCLUDE_DIR}/ilbc.h")
+ 		MESSAGE(STATUS "Found ilbc library: ${ILBC_LIBRARIES}")
+ 	ENDIF (NOT Ilbc_FIND_QUIETLY)
+ ELSE(ILBC_FOUND)
+diff -ur twinkle-1.10.2.org/src/audio/audio_decoder.cpp twinkle-1.10.2/src/audio/audio_decoder.cpp
+--- twinkle-1.10.2.org/src/audio/audio_decoder.cpp	2019-02-14 10:01:19.000000000 +0100
++++ twinkle-1.10.2/src/audio/audio_decoder.cpp	2020-03-22 14:03:19.232697512 +0100
+@@ -24,12 +24,28 @@
+ #ifndef HAVE_ILBC_CPP
+ extern "C" {
+ #endif
+-#include <ilbc/iLBC_decode.h>
++#include <ilbc.h>
+ #ifndef HAVE_ILBC_CPP
+ }
+ #endif
+ #endif
+ 
++#ifndef	NO_OF_BYTES_20MS
++#define	NO_OF_BYTES_20MS	38
++#endif
++
++#ifndef	NO_OF_BYTES_30MS
++#define	NO_OF_BYTES_30MS	50
++#endif
++
++#ifndef	MIN_SAMPLE
++#define	MIN_SAMPLE	-32768
++#endif
++
++#ifndef	MAX_SAMPLE
++#define	MAX_SAMPLE	32767
++#endif
++
+ //////////////////////////////////////////
+ // class t_audio_decoder
+ //////////////////////////////////////////
+@@ -277,19 +293,19 @@
+ uint16 t_ilbc_audio_decoder::decode(uint8 *payload, uint16 payload_size,
+ 		int16 *pcm_buf, uint16 pcm_buf_size)
+ {
+-	float sample;
+-	float block[BLOCKL_MAX];
++	int16 sample;
++	int16 block[BLOCKL_MAX];
+ 	int block_len;
+ 	
+ 	if (get_ptime(payload_size) == 20) {
+ 		block_len = BLOCKL_20MS;
+ 		assert(pcm_buf_size >= block_len);
+-		iLBC_decode(block, (unsigned char*)payload, &_ilbc_decoder_20, 1);
++		iLBC_decode(block, (uint16*)payload, &_ilbc_decoder_20, 1);
+ 		_last_received_ptime = 20;
+ 	} else {
+ 		block_len = BLOCKL_30MS;
+ 		assert(pcm_buf_size >= block_len);
+-		iLBC_decode(block, (unsigned char*)payload, &_ilbc_decoder_30, 1);
++		iLBC_decode(block, (uint16*)payload, &_ilbc_decoder_30, 1);
+ 		_last_received_ptime = 30;
+ 	}
+ 	
+@@ -299,15 +315,15 @@
+ 		if (sample < MIN_SAMPLE) sample = MIN_SAMPLE;
+ 		if (sample > MAX_SAMPLE) sample = MAX_SAMPLE;
+ 		
+-		pcm_buf[i] = static_cast<int16>(sample);
++		pcm_buf[i] = sample;
+ 	}
+ 
+ 	return block_len;
+ }
+ 
+ uint16 t_ilbc_audio_decoder::conceal(int16 *pcm_buf, uint16 pcm_buf_size) {
+-	float sample;
+-	float block[BLOCKL_MAX];
++	short int sample;
++	short int block[BLOCKL_MAX];
+ 	int block_len;
+ 	
+ 	if (_last_received_ptime == 0) return 0;
+diff -ur twinkle-1.10.2.org/src/audio/audio_decoder.h twinkle-1.10.2/src/audio/audio_decoder.h
+--- twinkle-1.10.2.org/src/audio/audio_decoder.h	2019-02-14 10:01:19.000000000 +0100
++++ twinkle-1.10.2/src/audio/audio_decoder.h	2020-03-22 14:03:19.232697512 +0100
+@@ -47,7 +47,7 @@
+ #ifndef HAVE_ILBC_CPP
+ extern "C" {
+ #endif
+-#include <ilbc/iLBC_define.h>
++#include <ilbc.h>
+ #ifndef HAVE_ILBC_CPP
+ }
+ #endif
+diff -ur twinkle-1.10.2.org/src/audio/audio_encoder.cpp twinkle-1.10.2/src/audio/audio_encoder.cpp
+--- twinkle-1.10.2.org/src/audio/audio_encoder.cpp	2019-02-14 10:01:19.000000000 +0100
++++ twinkle-1.10.2/src/audio/audio_encoder.cpp	2020-03-22 14:03:19.236030947 +0100
+@@ -23,12 +23,20 @@
+ #ifndef HAVE_ILBC_CPP
+ extern "C" {
+ #endif
+-#include <ilbc/iLBC_encode.h>
++#include <ilbc.h>
+ #ifndef HAVE_ILBC_CPP
+ }
+ #endif
+ #endif
+ 
++#ifndef	NO_OF_BYTES_20MS
++#define	NO_OF_BYTES_20MS	38
++#endif
++
++#ifndef	NO_OF_BYTES_30MS
++#define	NO_OF_BYTES_30MS	50
++#endif
++
+ //////////////////////////////////////////
+ // class t_audio_encoder
+ //////////////////////////////////////////
+@@ -263,13 +271,8 @@
+ 	assert(nsamples == _ilbc_encoder.blockl);
+ 	
+ 	silence = false;
+-	float block[nsamples];
+-	
+-	for (int i = 0; i < nsamples; i++) {
+-		block[i] = static_cast<float>(sample_buf[i]);
+-	}
+ 	
+-	iLBC_encode((unsigned char*)payload, block, &_ilbc_encoder);
++	iLBC_encode((uint16*)payload, sample_buf, &_ilbc_encoder);
+ 	
+ 	return _ilbc_encoder.no_of_bytes;
+ }
+diff -ur twinkle-1.10.2.org/src/audio/audio_encoder.h twinkle-1.10.2/src/audio/audio_encoder.h
+--- twinkle-1.10.2.org/src/audio/audio_encoder.h	2019-02-14 10:01:19.000000000 +0100
++++ twinkle-1.10.2/src/audio/audio_encoder.h	2020-03-22 14:03:19.236030947 +0100
+@@ -46,7 +46,7 @@
+ #ifndef HAVE_ILBC_CPP
+ extern "C" {
+ #endif
+-#include <ilbc/iLBC_define.h>
++#include <ilbc.h>
+ #ifndef HAVE_ILBC_CPP
+ }
+ #endif
