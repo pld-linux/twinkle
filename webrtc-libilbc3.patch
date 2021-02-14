@@ -1,0 +1,26 @@
+--- twinkle-1.10.2/src/audio/audio_decoder.h~	2021-02-14 19:33:32.000000000 +0100
++++ twinkle-1.10.2/src/audio/audio_decoder.h	2021-02-14 19:35:59.634214690 +0100
+@@ -48,6 +48,10 @@
+ extern "C" {
+ #endif
+ #include <ilbc.h>
++#define initDecode WebRtcIlbcfix_InitDecode
++#define initEncode WebRtcIlbcfix_InitEncode
++#define iLBC_decode WebRtcIlbcfix_DecodeImpl
++#define iLBC_encode WebRtcIlbcfix_EncodeImpl
+ #ifndef HAVE_ILBC_CPP
+ }
+ #endif
+--- twinkle-1.10.2/src/audio/audio_encoder.h~	2021-02-14 19:33:32.000000000 +0100
++++ twinkle-1.10.2/src/audio/audio_encoder.h	2021-02-14 19:36:51.594446403 +0100
+@@ -47,6 +47,10 @@
+ extern "C" {
+ #endif
+ #include <ilbc.h>
++#define initDecode WebRtcIlbcfix_InitDecode
++#define initEncode WebRtcIlbcfix_InitEncode
++#define iLBC_decode WebRtcIlbcfix_DecodeImpl
++#define iLBC_encode WebRtcIlbcfix_EncodeImpl
+ #ifndef HAVE_ILBC_CPP
+ }
+ #endif
